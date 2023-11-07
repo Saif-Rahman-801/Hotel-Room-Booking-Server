@@ -25,6 +25,7 @@ async function run() {
     await client.connect();
     const database = client.db("TheGrandBonjour");
     const homePageImgCollection = database.collection("HomePageImg");
+    const testimonialCollection = database.collection("Testimonials");
 
     // Get Home page images
     app.get("/homeImg", async (req, res) => {
@@ -32,6 +33,13 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    // Get testimonials data
+    app.get("/testimonials", async(req, res) => {
+        const cursor = testimonialCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
