@@ -26,6 +26,7 @@ async function run() {
     const database = client.db("TheGrandBonjour");
     const homePageImgCollection = database.collection("HomePageImg");
     const testimonialCollection = database.collection("Testimonials");
+    const roomsCollection = database.collection("Rooms");
 
     // Get Home page images
     app.get("/homeImg", async (req, res) => {
@@ -40,6 +41,14 @@ async function run() {
         const result = await cursor.toArray();
         res.send(result);
     })
+
+    // Get the rooms data
+    app.get("/rooms", async(req, res) => {
+        const cursor = roomsCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
