@@ -27,6 +27,7 @@ async function run() {
     const homePageImgCollection = database.collection("HomePageImg");
     const testimonialCollection = database.collection("Testimonials");
     const roomsCollection = database.collection("Rooms");
+    const bookedRoomsCollection = database.collection("bookedRooms");
 
     // Get Home page images
     app.get("/homeImg", async (req, res) => {
@@ -55,6 +56,20 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const result = await roomsCollection.findOne(query);
       res.send(result);
+    });
+
+    // post Booked rooms data
+    app.post("/bookedRoom", async (req, res) => {
+      const bookedRoom = req.body;
+      const result = await bookedRoomsCollection.insertOne(bookedRoom);
+      res.send(result);
+    });
+
+    // read booked room data
+    app.get("/bookedRoom", async (req, res) => {
+        const cursor = bookedRoomsCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
     });
 
     // Send a ping to confirm a successful connection
