@@ -28,6 +28,7 @@ async function run() {
     const testimonialCollection = database.collection("Testimonials");
     const roomsCollection = database.collection("Rooms");
     const bookedRoomsCollection = database.collection("bookedRooms");
+    const reviewsCollection = database.collection("reviews");
 
     // Get Home page images
     app.get("/homeImg", async (req, res) => {
@@ -67,18 +68,18 @@ async function run() {
 
     // read booked room data
     app.get("/bookedRoom", async (req, res) => {
-        const cursor = bookedRoomsCollection.find();
-        const result = await cursor.toArray();
-        res.send(result);
+      const cursor = bookedRoomsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
     });
 
     // Read single booked room
-    app.get("/bookedRoom/:id", async(req, res) => {
+    app.get("/bookedRoom/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await bookedRoomsCollection.findOne(query);
       res.send(result);
-    })
+    });
 
     // delete single booked data
     app.delete("/bookedRoom/:id", async (req, res) => {
@@ -89,6 +90,19 @@ async function run() {
       res.send(result);
     });
 
+    // post client reviews
+    app.post("/reviews", async (req, res) => {
+      const reviews = req.body;
+      const result = await reviewsCollection.insertOne(reviews);
+      res.send(result);
+    });
+
+    // Read reviews data
+    app.get("/reviews", async (req, res) => {
+      const cursor = reviewsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
