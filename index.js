@@ -29,6 +29,7 @@ async function run() {
     const roomsCollection = database.collection("Rooms");
     const bookedRoomsCollection = database.collection("bookedRooms");
     const reviewsCollection = database.collection("reviews");
+    const aboutCollection = database.collection("aboutUs");
 
     // Get Home page images
     app.get("/homeImg", async (req, res) => {
