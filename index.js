@@ -29,7 +29,6 @@ async function run() {
     const roomsCollection = database.collection("Rooms");
     const bookedRoomsCollection = database.collection("bookedRooms");
     const reviewsCollection = database.collection("reviews");
-    const aboutCollection = database.collection("aboutUs");
 
     // Get Home page images
     app.get("/homeImg", async (req, res) => {
@@ -85,7 +84,6 @@ async function run() {
     // delete single booked data
     app.delete("/bookedRoom/:id", async (req, res) => {
       const id = req.params.id;
-      // console.log("Delete hitted for", id);
       const query = { _id: new ObjectId(id) };
       const result = await bookedRoomsCollection.deleteOne(query);
       res.send(result);
