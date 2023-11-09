@@ -72,6 +72,24 @@ async function run() {
         res.send(result);
     });
 
+    // Read single booked room
+    app.get("/bookedRoom/:id", async(req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await bookedRoomsCollection.findOne(query);
+      res.send(result);
+    })
+
+    // delete single booked data
+    app.delete("/bookedRoom/:id", async (req, res) => {
+      const id = req.params.id;
+      // console.log("Delete hitted for", id);
+      const query = { _id: new ObjectId(id) };
+      const result = await bookedRoomsCollection.deleteOne(query);
+      res.send(result);
+    });
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
