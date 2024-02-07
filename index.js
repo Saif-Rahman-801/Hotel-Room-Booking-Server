@@ -8,8 +8,9 @@ const port = process.env.PORT || 5000;
 app.use(
   cors({
     origin: [
-      "https://the-grand-bonjour.web.app",
       "http://localhost:5173",
+      "https://65c38d057f27343158794388--moonlit-marzipan-acf997.netlify.app",
+      "https://moonlit-marzipan-acf997.netlify.app",
     ],
   })
 );
